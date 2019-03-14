@@ -39,6 +39,56 @@ extension ToDoTableViewController {
     @IBAction func unwind(segue: UIStoryboardSegue)
     {
         guard segue.identifier == "SaveSegue" else { return }
+        let source = segue.source as! ToDoItemTableViewController
+        let todo = source.todo
+        
+        // Edited Cell
+        if let indexPath = tableView.indexPathForSelectedRow
+        {
+          todos[indexPath.row] = todo
+          tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        else
+        {   // Aded Cell
+            guard !todo.keys.isEmpty, todo.dueDate == Date() else { return }
+            let indexPath = IndexPath(row: todos.count, section: 0)
+            todos.append(todo)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
+    }
+}
+
+// MARK: - ... TableViewDelegate
+extension ToDoTableViewController
+{
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
+    {
+        // Delete Cell
+        let delete = UITableViewRowAction(style: .destructive, title: "DELETE")
+        {
+            (action, indexPath) in
+            self.todos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+        // Copy Cell
+        let insert = UITableViewRowAction(style: .normal, title: "COPY")
+        {
+            (action, indexPath) in
+            let todoToCopy = self.todos[indexPath.row]
+            self.todos.insert(todoToCopy, at: indexPath.row)
+            tableView.insertRows(at: [indexPath], with: .bottom)
+        }
+        
+        delete.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        insert.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        
+        return [delete, insert]
     }
 }
 

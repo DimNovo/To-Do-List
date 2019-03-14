@@ -11,14 +11,15 @@ import UIKit
 // MARK: - ... Properties
 class ToDoItemTableViewController: UITableViewController
 {
-    enum CellType
-    {
-        case
-        DateCell,
-        NotesCell,
-        SwitchCell,
-        TextFieldCell
-    }
+//    enum CellType
+//    {
+//        case
+//        DateCell,
+//        NotesCell,
+//        SwitchCell,
+//        TextFieldCell
+//    }
+    
     var todo = ToDo()
 }
 
@@ -113,12 +114,14 @@ extension ToDoItemTableViewController
                 let textFieldCell = cell as! TextFieldCell
                 let value = textFieldCell.textField.text
                 todo.setValue(value, forKey: key)
-                print(#function, key, value as Any)
+                
             }
             else if value is Bool
                 {
                     let switchCell = cell as! SwitchCell
-                    print(#function, switchCell.switchCell.isOn)
+                    let value = switchCell.switchCell.isOn
+                    todo.setValue(value, forKey: key)
+                    
                 }
                 else if value is Date
                     {
@@ -129,15 +132,16 @@ extension ToDoItemTableViewController
                         
                         let dateCell = cell as! DateCell
                         let text = dateCell.labelCell.text ?? ""
-                        let date = formater.date(from: text)
-                        print(#function, date ?? Date())
+                        let value = formater.date(from: text)
+                        todo.setValue(value, forKey: key)
+                        
                     }
                     else
                     {
                         let textFieldCell = cell as! TextFieldCell
-                        print(#function, textFieldCell.textField.text ?? "nil")
+                        let value = textFieldCell.textField.text
+                        todo.setValue(value, forKey: key)
             }
         }
-        print(#function, todo)
     }
 }
