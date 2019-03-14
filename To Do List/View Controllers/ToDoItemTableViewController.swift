@@ -8,29 +8,136 @@
 
 import UIKit
 
+// MARK: - ... Properties
 class ToDoItemTableViewController: UITableViewController
 {
-    
-    private var todo = ToDo(title: String(), isComplete: Bool(), dueDate: Date(), notes: nil)
+    enum CellType
+    {
+        case
+        DateCell,
+        NotesCell,
+        SwitchCell,
+        TextFieldCell
+    }
+    var todo = ToDo()
+}
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+// MARK: - ... TableViewDataSource
+extension ToDoItemTableViewController
+{
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let section = indexPath.section
+        let value = todo.values[section]
+        
+        let cell = configureCell(with: value)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        let key = todo.capitalaizedKeys[section]
+        return key
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int
     {
         return todo.keys.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell")!
-        
-        let row = indexPath.row
-        let key = todo.keys[row]
-        
-        configure(cell: cell, with: key)
-        return cell
+        return 1
     }
-    
-    func configure(cell: UITableViewCell, with key: String)
+}
+
+// MARK: - ... Custom Methods
+extension ToDoItemTableViewController
+{
+    func configureCell(with value: Any?) -> UITableViewCell
     {
-        cell.textLabel?.text = key
+        if let stringValue = value as? String
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! TextFieldCell
+            cell.textField.text = stringValue
+            
+            return cell
+        }
+        else
+            if let boolValue = value as? Bool
+            {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell") as! SwitchCell
+                cell.switchCell.isOn = boolValue
+                
+                return cell
+            }
+            else
+                if let dateValue = value as? Date
+                {
+                    let formater = DateFormatter()
+                    formater.dateStyle = .medium
+                    formater.timeStyle = .short
+                    formater.dateFormat = "d/MM/y  HH:mm"
+                    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "DateCell") as! DateCell
+                    cell.labelCell.text = formater.string(from: dateValue)
+                    
+                    return cell
+                }
+                else
+                {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! TextFieldCell
+                    cell.textField.text = nil
+                    
+                    return cell
+        }
+    }
+}
+
+// MARK: - ... Navigation
+extension ToDoItemTableViewController
+{
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        guard segue.identifier == "SaveSegue" else { return }
+        
+        for (index, key) in todo.keys.enumerated()
+        {
+            
+            let indexPath = IndexPath(row: 0, section: index)
+            let cell = tableView.cellForRow(at: indexPath)
+            let value = todo.values[index]
+            
+            if value is String
+            {
+                let textFieldCell = cell as! TextFieldCell
+                let value = textFieldCell.textField.text
+                todo.setValue(value, forKey: key)
+                print(#function, key, value as Any)
+            }
+            else if value is Bool
+                {
+                    let switchCell = cell as! SwitchCell
+                    print(#function, switchCell.switchCell.isOn)
+                }
+                else if value is Date
+                    {
+                        let formater = DateFormatter()
+                        formater.dateStyle = .medium
+                        formater.timeStyle = .short
+                        formater.dateFormat = "d/MM/y  HH:mm"
+                        
+                        let dateCell = cell as! DateCell
+                        let text = dateCell.labelCell.text ?? ""
+                        let date = formater.date(from: text)
+                        print(#function, date ?? Date())
+                    }
+                    else
+                    {
+                        let textFieldCell = cell as! TextFieldCell
+                        print(#function, textFieldCell.textField.text ?? "nil")
+            }
+        }
+        print(#function, todo)
     }
 }
