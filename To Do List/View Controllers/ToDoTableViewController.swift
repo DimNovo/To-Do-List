@@ -50,7 +50,6 @@ extension ToDoTableViewController {
         }
         else
         {   // Aded Cell
-            guard !todo.keys.isEmpty, todo.dueDate == Date() else { return }
             let indexPath = IndexPath(row: todos.count, section: 0)
             todos.append(todo)
             tableView.insertRows(at: [indexPath], with: .automatic)
