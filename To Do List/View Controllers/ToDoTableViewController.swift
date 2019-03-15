@@ -25,7 +25,8 @@ extension ToDoTableViewController
 }
 
 // MARK: - ... Navigation
-extension ToDoTableViewController {
+extension ToDoTableViewController
+{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "ToDoItemSegue" else { return }
         guard let index = tableView.indexPathForSelectedRow?.row else { return }
@@ -43,17 +44,20 @@ extension ToDoTableViewController {
         let todo = source.todo
         
         // Edited Cell
-        if let indexPath = tableView.indexPathForSelectedRow
+        if source.navigationItem.title == "Edit",
+            let indexPath = tableView.indexPathForSelectedRow
         {
-          todos[indexPath.row] = todo
-          tableView.reloadRows(at: [indexPath], with: .automatic)
+            todos[indexPath.row] = todo
         }
-        else
-        {   // Aded Cell
+        // Aded Cell
+        else if source.navigationItem.title == "Add",
+            !(source.todo.title.isEmpty) || !(source.todo.notes?.isEmpty)!
+        {
             let indexPath = IndexPath(row: todos.count, section: 0)
             todos.append(todo)
             tableView.insertRows(at: [indexPath], with: .automatic)
         }
+        tableView.reloadData()
     }
 }
 
