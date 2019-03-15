@@ -25,27 +25,7 @@ import Foundation
         self.notes = notes
     }
     
-    var capitalaizedKeys: [String]
-    {
-        let nonCpitalized = Mirror(reflecting: self).children.compactMap { $0.label }
-        
-        var words = [String]()
-        
-        nonCpitalized.forEach { word in
-            var splitWord = ""
-            
-            for character in word {
-                if String(character) == String(character).localizedUppercase {
-                    splitWord += " "
-                }
-                splitWord += "\(character)"
-            }
-            words += [splitWord.localizedCapitalized]
-        }
-        return words
-    }
-    
-    var keys:[String]
+    var keys: [String]
     {
         return Mirror(reflecting: self).children.compactMap { $0.label }
     }
@@ -69,3 +49,24 @@ import Foundation
         ]
     }
 }
+
+
+//    var capitalaizedKeys: [String]
+//    {
+//        let nonCpitalized = Mirror(reflecting: self).children.compactMap { $0.label }
+//
+//        var words = [String]()
+//
+//        nonCpitalized.forEach { word in
+//            var splitWord = ""
+//
+//            for character in word {
+//                if String(character) == String(character).localizedUppercase {
+//                    splitWord += " "
+//                }
+//                splitWord += "\(character)"
+//            }
+//            words += [splitWord.localizedCapitalized]
+//        }
+//        return words
+//    }

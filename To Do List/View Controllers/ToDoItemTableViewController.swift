@@ -11,14 +11,14 @@ import UIKit
 // MARK: - ... Properties
 class ToDoItemTableViewController: UITableViewController
 {
-//    enum CellType
-//    {
-//        case
-//        DateCell,
-//        NotesCell,
-//        SwitchCell,
-//        TextFieldCell
-//    }
+    //    enum CellType
+    //    {
+    //        case
+    //        DateCell,
+    //        NotesCell,
+    //        SwitchCell,
+    //        TextFieldCell
+    //    }
     
     var todo = ToDo()
 }
@@ -35,10 +35,20 @@ extension ToDoItemTableViewController
         return cell
     }
     
+    // Header Title
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        let key = todo.capitalaizedKeys[section]
+        let key = todo.keys[section]
         return key
+    }
+    // Header Title Customizing
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.textLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        
+        header.textLabel?.text = todo.keys[section].titlecased()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int
@@ -117,31 +127,45 @@ extension ToDoItemTableViewController
                 
             }
             else if value is Bool
-                {
-                    let switchCell = cell as! SwitchCell
-                    let value = switchCell.switchCell.isOn
-                    todo.setValue(value, forKey: key)
-                    
-                }
-                else if value is Date
-                    {
-                        let formater = DateFormatter()
-                        formater.dateStyle = .medium
-                        formater.timeStyle = .short
-                        formater.dateFormat = "d/MM/y  HH:mm"
-                        
-                        let dateCell = cell as! DateCell
-                        let text = dateCell.labelCell.text ?? ""
-                        let value = formater.date(from: text)
-                        todo.setValue(value, forKey: key)
-                        
-                    }
-                    else
-                    {
-                        let textFieldCell = cell as! TextFieldCell
-                        let value = textFieldCell.textField.text
-                        todo.setValue(value, forKey: key)
+            {
+                let switchCell = cell as! SwitchCell
+                let value = switchCell.switchCell.isOn
+                todo.setValue(value, forKey: key)
+                
+            }
+            else if value is Date
+            {
+                let formater = DateFormatter()
+                formater.dateStyle = .medium
+                formater.timeStyle = .short
+                formater.dateFormat = "d/MM/y  HH:mm"
+                
+                let dateCell = cell as! DateCell
+                let text = dateCell.labelCell.text ?? ""
+                let value = formater.date(from: text)
+                todo.setValue(value, forKey: key)
+                
+            }
+            else
+            {
+                let textFieldCell = cell as! TextFieldCell
+                let value = textFieldCell.textField.text
+                todo.setValue(value, forKey: key)
             }
         }
+    }
+}
+
+// MARK: - ... Extension: String Methods
+extension String
+{
+    func titlecased() -> String
+    {
+        let title = self.replacingOccurrences(
+            of: "([A-Z])", with: " $1", options:
+            .regularExpression, range: self.range(
+                of: self)).localizedCapitalized
+        
+        return title
     }
 }
