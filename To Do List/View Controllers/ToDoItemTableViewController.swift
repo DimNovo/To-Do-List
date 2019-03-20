@@ -11,27 +11,18 @@ import UIKit
 // MARK: - ... Properties
 class ToDoItemTableViewController: UITableViewController
 {
-    //    enum CellType
-    //    {
-    //        case
-    //        DateCell,
-    //        NotesCell,
-    //        SwitchCell,
-    //        TextFieldCell
-    //    }
-    
     var todo = ToDo()
 }
 
 // MARK: - ... TableViewDataSource
-extension ToDoItemTableViewController
+extension ToDoItemTableViewController/*: TableViewDataSource */
 {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let section = indexPath.section
         let value = todo.values[section]
+        let cell = configureCellFor(indexPath: indexPath, with: value)
         
-        let cell = configureCell(with: value)
         return cell
     }
     
@@ -58,15 +49,57 @@ extension ToDoItemTableViewController
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return 1
+        let value = todo.values[section]
+        let numberOfRows = value is Date ? 2 : 1
+        return numberOfRows
+    }
+}
+
+// MARK: - ... UITableViewDelegate
+extension ToDoItemTableViewController/*: UITableViewDelegate */
+{
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard isItDateCell(at: indexPath) else { return }
+        guard let cell = tableView.cellForRow(at: indexPath.nextRow) else { return }
+        
+        cell.isHidden.toggle()
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        guard isItDatePickerCell(at: indexPath) else { return 44 }
+        guard let cell = tableView.cellForRow(at: indexPath) else { return 44 }
+        return cell.isHidden ? 0 : 200
     }
 }
 
 // MARK: - ... Custom Methods
 extension ToDoItemTableViewController
 {
-    func configureCell(with value: Any?) -> UITableViewCell
+    // Checking: is DateCell
+    func isItDateCell(at indexPath: IndexPath) -> Bool
     {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return false }
+        
+        return cell is DateCell
+    }
+    // Checking: is DatePickerCell
+    func isItDatePickerCell(at indexPath: IndexPath) -> Bool
+    {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return false }
+        
+        return cell is DatePickerCell
+    }
+    
+    // Configure: Cell
+    func configureCellFor(indexPath: IndexPath, with value: Any?) -> UITableViewCell
+    {
+        
         if let stringValue = value as? String
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! TextFieldCell
@@ -85,15 +118,25 @@ extension ToDoItemTableViewController
             else
                 if let dateValue = value as? Date
                 {
-                    let formater = DateFormatter()
-                    formater.dateStyle = .medium
-                    formater.timeStyle = .short
-                    formater.dateFormat = "d/MM/y  HH:mm"
-                    
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "DateCell") as! DateCell
-                    cell.labelCell.text = formater.string(from: dateValue)
-                    
-                    return cell
+                    switch indexPath.row
+                    {
+                        
+                    case 0:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "DateCell") as! DateCell
+                        cell.setDate(dateValue)
+                        
+                        return cell
+                        
+                    default:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerCell") as! DatePickerCell
+                        cell.datePicker.addTarget(self, action: #selector(valueChanged(at:)), for: .valueChanged)
+                        cell.datePicker.date = Date()
+                        cell.datePicker.indexPath = indexPath
+                        cell.datePicker.minimumDate = Date()
+                        cell.isHidden = true
+                        
+                        return cell
+                    }
                 }
                 else
                 {
@@ -103,6 +146,13 @@ extension ToDoItemTableViewController
                     return cell
         }
     }
+    
+    @objc func valueChanged(at datePicker: DatePicker)
+    {
+        let dateCellIndexPath = datePicker.indexPath.prevtRow
+        guard let cell = tableView.cellForRow(at: dateCellIndexPath) as? DateCell else { return }
+        cell.setDate(datePicker.date)
+    }
 }
 
 // MARK: - ... Navigation
@@ -111,6 +161,7 @@ extension ToDoItemTableViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         guard segue.identifier == "SaveSegue" else { return }
+        
         
         for (index, key) in todo.keys.enumerated()
         {
@@ -153,19 +204,5 @@ extension ToDoItemTableViewController
                 todo.setValue(value, forKey: key)
             }
         }
-    }
-}
-
-// MARK: - ... Extension: String Methods
-extension String
-{
-    func titlecased() -> String
-    {
-        let title = self.replacingOccurrences(
-            of: "([A-Z])", with: " $1", options:
-            .regularExpression, range: self.range(
-                of: self)).localizedCapitalized
-        
-        return title
     }
 }

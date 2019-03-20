@@ -126,7 +126,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAa-dQ-AtE">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAa-dQ-AtE">
                                             <rect key="frame" x="16" y="11" width="343" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -142,6 +142,32 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="labelCell" destination="PAa-dQ-AtE" id="rAZ-B4-elH"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="200" id="SHr-N0-E1W" customClass="DatePickerCell" customModule="To_Do_List" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="187.5" width="375" height="200"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SHr-N0-E1W" id="fyS-mE-yGt">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpy-pR-No2" customClass="DatePicker" customModule="To_Do_List" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="11" width="343" height="216"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="574739834.65924501">
+                                                <!--2019-03-20 01:57:14 +0000-->
+                                            </date>
+                                            <locale key="locale" localeIdentifier="he_IL"/>
+                                        </datePicker>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Hpy-pR-No2" secondAttribute="trailing" id="Fuj-MC-Ffi"/>
+                                        <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="Hpy-pR-No2" secondAttribute="bottom" id="Vnx-8P-i8p"/>
+                                        <constraint firstItem="Hpy-pR-No2" firstAttribute="top" secondItem="fyS-mE-yGt" secondAttribute="topMargin" id="XM2-cT-KoU"/>
+                                        <constraint firstItem="Hpy-pR-No2" firstAttribute="leading" secondItem="fyS-mE-yGt" secondAttribute="leadingMargin" id="oZ2-2f-qkH"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="datePicker" destination="Hpy-pR-No2" id="KV7-PY-pbC"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
