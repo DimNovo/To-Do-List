@@ -20,6 +20,7 @@
 		747C27602236A71A0062F162 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 747C275E2236A71A0062F162 /* LaunchScreen.storyboard */; };
 		747C27692236A78B0062F162 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C27682236A78B0062F162 /* ToDo.swift */; };
 		747C276C2236A82C0062F162 /* ToDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C276B2236A82C0062F162 /* ToDoTableViewController.swift */; };
+		74F8C19822434A7A00065705 /* ToDoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F8C19722434A7A00065705 /* ToDoStorage.swift */; };
 		74FCB2B72236C8B000664E32 /* ToDoItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FCB2B62236C8B000664E32 /* ToDoItemTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		747C27612236A71A0062F162 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747C27682236A78B0062F162 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		747C276B2236A82C0062F162 /* ToDoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewController.swift; sourceTree = "<group>"; };
+		74F8C19722434A7A00065705 /* ToDoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoStorage.swift; sourceTree = "<group>"; };
 		74FCB2B62236C8B000664E32 /* ToDoItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItemTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,7 +86,7 @@
 				325D532C2241F06D00BA6F67 /* Extension */,
 				747C27672236A7660062F162 /* Model */,
 				747C276E2236A8830062F162 /* View */,
-				747C276A2236A7FE0062F162 /* View Controllers */,
+				747C276A2236A7FE0062F162 /* Controller */,
 				747C276D2236A85C0062F162 /* Supporting Files */,
 			);
 			path = "To Do List";
@@ -94,17 +96,18 @@
 			isa = PBXGroup;
 			children = (
 				747C27682236A78B0062F162 /* ToDo.swift */,
+				74F8C19722434A7A00065705 /* ToDoStorage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		747C276A2236A7FE0062F162 /* View Controllers */ = {
+		747C276A2236A7FE0062F162 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				747C276B2236A82C0062F162 /* ToDoTableViewController.swift */,
 				74FCB2B62236C8B000664E32 /* ToDoItemTableViewController.swift */,
 			);
-			path = "View Controllers";
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		747C276D2236A85C0062F162 /* Supporting Files */ = {
@@ -205,6 +208,7 @@
 				74FCB2B72236C8B000664E32 /* ToDoItemTableViewController.swift in Sources */,
 				747C27562236A7190062F162 /* AppDelegate.swift in Sources */,
 				325D532B2241F06100BA6F67 /* IndexPath+Extension.swift in Sources */,
+				74F8C19822434A7A00065705 /* ToDoStorage.swift in Sources */,
 				747C276C2236A82C0062F162 /* ToDoTableViewController.swift in Sources */,
 				3298F13F2241CEC600CBC395 /* DatePickerCell.swift in Sources */,
 				740CBEF22239BD0300C305AB /* DateCell.swift in Sources */,

@@ -5,9 +5,9 @@
 //  Created by Dmitry Novosyolov on 11/03/2019.
 //  Copyright © 2019 Dmitry Novosyolov. All rights reserved.
 //
-import Foundation
+import UIKit
 
- @objcMembers class ToDo: NSObject
+@objcMembers class ToDo: NSObject, Codable
 {
     var title: String
     var isComplete: Bool
@@ -25,6 +25,23 @@ import Foundation
         self.notes = notes
     }
     
+    var encoded: Data?
+    {
+        let encoder = PropertyListEncoder()
+        let data = try? encoder.encode(self)
+        
+        return data
+    }
+    
+    convenience init?(data: Data?)
+    {
+        guard let data = data else { return nil }
+        let decoder = PropertyListDecoder()
+        guard let ToDo = try? decoder.decode(ToDo.self, from: data) else { return nil }
+        
+        self.init(title: ToDo.title, isComplete: ToDo.isComplete, dueDate: ToDo.dueDate, notes: ToDo.notes)
+    }
+    
     var keys: [String]
     {
         return Mirror(reflecting: self).children.compactMap { $0.label }
@@ -33,11 +50,6 @@ import Foundation
     var values: [Any?]
     {
         return Mirror(reflecting: self).children.map { $0.value }
-    }
-    
-    static func loadData() -> [ToDo]?
-    {
-        return loadSampleData()
     }
     
     static func loadSampleData() -> [ToDo]
@@ -49,24 +61,3 @@ import Foundation
         ]
     }
 }
-
-
-//    var capitalaizedKeys: [String]
-//    {
-//        let nonCpitalized = Mirror(reflecting: self).children.compactMap { $0.label }
-//
-//        var words = [String]()
-//
-//        nonCpitalized.forEach { word in
-//            var splitWord = ""
-//
-//            for character in word {
-//                if String(character) == String(character).localizedUppercase {
-//                    splitWord += " "
-//                }
-//                splitWord += "\(character)"
-//            }
-//            words += [splitWord.localizedCapitalized]
-//        }
-//        return words
-//    }

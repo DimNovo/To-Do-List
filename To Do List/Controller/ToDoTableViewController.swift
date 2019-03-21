@@ -12,6 +12,11 @@ import UIKit
 class ToDoTableViewController: UITableViewController
 {
     var todos = [ToDo]()
+    {
+        didSet {
+            ToDoStorage.shared.saveToDo(todos: todos) // Save [ToDo] to permanent storage
+        }
+    }
 }
 
 // MARK: - ... UIViewController Methods
@@ -20,7 +25,15 @@ extension ToDoTableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        todos = ToDo.loadData() ?? []
+        
+        if let todos = ToDoStorage.shared.loadToDo() // Load [ToDo] from permanent storage
+        {
+            self.todos = todos
+        }
+        else
+        {
+            todos = ToDo.loadSampleData()
+        }
     }
 }
 

@@ -99,7 +99,6 @@ extension ToDoItemTableViewController
     // Configure: Cell
     func configureCellFor(indexPath: IndexPath, with value: Any?) -> UITableViewCell
     {
-        
         if let stringValue = value as? String
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! TextFieldCell
