@@ -12,11 +12,6 @@ import UIKit
 class ToDoTableViewController: UITableViewController
 {
     var todos = [ToDo]()
-    {
-        didSet {
-            ToDoStorage.shared.saveToDo(todos: todos) // Save [ToDo] to permanent storage
-        }
-    }
 }
 
 // MARK: - ... UIViewController Methods
@@ -26,13 +21,18 @@ extension ToDoTableViewController
     {
         super.viewDidLoad()
         
-        if let todos = ToDoStorage.shared.loadToDo() // Load [ToDo] from permanent storage
-        {
-            self.todos = todos
-        }
-        else
-        {
-            todos = ToDo.loadSampleData()
+        ToDo.loadFromCloudKit { todos in
+            if let todos = todos
+            {
+                self.todos = todos
+            }
+            else
+            {
+                self.todos = [] //ToDo.loadSampleData()
+            }
+            DispatchQueue.main.async {
+            self.tableView.reloadData()
+            }
         }
     }
 }
@@ -61,6 +61,7 @@ extension ToDoTableViewController
             let indexPath = tableView.indexPathForSelectedRow
         {
             todos[indexPath.row] = todo
+            tableView.reloadRows(at: [indexPath], with: .automatic)
         }
             
         // Aded Cell
@@ -71,18 +72,12 @@ extension ToDoTableViewController
             todos.append(todo)
             tableView.insertRows(at: [indexPath], with: .automatic)
         }
-        tableView.reloadData()
     }
 }
 
 // MARK: - ... TableViewDelegate
 extension ToDoTableViewController
 {
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
     {
         // Delete Cell

@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		323DE522224607B800A61932 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323DE521224607B800A61932 /* CloudKit.framework */; };
 		325D532B2241F06100BA6F67 /* IndexPath+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325D532A2241F06100BA6F67 /* IndexPath+Extension.swift */; };
 		325D532E2241F0AF00BA6F67 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325D532D2241F0AF00BA6F67 /* String+Extension.swift */; };
 		325D53302241F94000BA6F67 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325D532F2241F94000BA6F67 /* DatePicker.swift */; };
+		32810A1722487C89007AA66E /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32810A1622487C89007AA66E /* UIImageView+Extension.swift */; };
+		32810A192248808D007AA66E /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32810A182248808D007AA66E /* ImageCell.swift */; };
 		3298F13F2241CEC600CBC395 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3298F13E2241CEC600CBC395 /* DatePickerCell.swift */; };
 		740CBEF02239BCCF00C305AB /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740CBEEF2239BCCF00C305AB /* TextFieldCell.swift */; };
 		740CBEF22239BD0300C305AB /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740CBEF12239BD0300C305AB /* DateCell.swift */; };
@@ -20,14 +23,17 @@
 		747C27602236A71A0062F162 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 747C275E2236A71A0062F162 /* LaunchScreen.storyboard */; };
 		747C27692236A78B0062F162 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C27682236A78B0062F162 /* ToDo.swift */; };
 		747C276C2236A82C0062F162 /* ToDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C276B2236A82C0062F162 /* ToDoTableViewController.swift */; };
-		74F8C19822434A7A00065705 /* ToDoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F8C19722434A7A00065705 /* ToDoStorage.swift */; };
 		74FCB2B72236C8B000664E32 /* ToDoItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FCB2B62236C8B000664E32 /* ToDoItemTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		323DE51F2246046D00A61932 /* To Do List.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "To Do List.entitlements"; sourceTree = "<group>"; };
+		323DE521224607B800A61932 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		325D532A2241F06100BA6F67 /* IndexPath+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IndexPath+Extension.swift"; sourceTree = "<group>"; };
 		325D532D2241F0AF00BA6F67 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		325D532F2241F94000BA6F67 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		32810A1622487C89007AA66E /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		32810A182248808D007AA66E /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		3298F13E2241CEC600CBC395 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		740CBEEF2239BCCF00C305AB /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		740CBEF12239BD0300C305AB /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
@@ -40,7 +46,6 @@
 		747C27612236A71A0062F162 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747C27682236A78B0062F162 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		747C276B2236A82C0062F162 /* ToDoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewController.swift; sourceTree = "<group>"; };
-		74F8C19722434A7A00065705 /* ToDoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoStorage.swift; sourceTree = "<group>"; };
 		74FCB2B62236C8B000664E32 /* ToDoItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItemTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,17 +54,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				323DE522224607B800A61932 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		323DE520224607B800A61932 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				323DE521224607B800A61932 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		325D532C2241F06D00BA6F67 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				325D532A2241F06100BA6F67 /* IndexPath+Extension.swift */,
 				325D532D2241F0AF00BA6F67 /* String+Extension.swift */,
+				32810A1622487C89007AA66E /* UIImageView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -69,6 +84,7 @@
 			children = (
 				747C27542236A7190062F162 /* To Do List */,
 				747C27532236A7190062F162 /* Products */,
+				323DE520224607B800A61932 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +99,7 @@
 		747C27542236A7190062F162 /* To Do List */ = {
 			isa = PBXGroup;
 			children = (
+				323DE51F2246046D00A61932 /* To Do List.entitlements */,
 				325D532C2241F06D00BA6F67 /* Extension */,
 				747C27672236A7660062F162 /* Model */,
 				747C276E2236A8830062F162 /* View */,
@@ -96,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				747C27682236A78B0062F162 /* ToDo.swift */,
-				74F8C19722434A7A00065705 /* ToDoStorage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -128,6 +144,7 @@
 				740CBEF12239BD0300C305AB /* DateCell.swift */,
 				325D532F2241F94000BA6F67 /* DatePicker.swift */,
 				3298F13E2241CEC600CBC395 /* DatePickerCell.swift */,
+				32810A182248808D007AA66E /* ImageCell.swift */,
 				740CBEF32239BD0800C305AB /* SwitchCell.swift */,
 				740CBEEF2239BCCF00C305AB /* TextFieldCell.swift */,
 			);
@@ -166,6 +183,14 @@
 				TargetAttributes = {
 					747C27512236A7190062F162 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -208,10 +233,11 @@
 				74FCB2B72236C8B000664E32 /* ToDoItemTableViewController.swift in Sources */,
 				747C27562236A7190062F162 /* AppDelegate.swift in Sources */,
 				325D532B2241F06100BA6F67 /* IndexPath+Extension.swift in Sources */,
-				74F8C19822434A7A00065705 /* ToDoStorage.swift in Sources */,
 				747C276C2236A82C0062F162 /* ToDoTableViewController.swift in Sources */,
 				3298F13F2241CEC600CBC395 /* DatePickerCell.swift in Sources */,
 				740CBEF22239BD0300C305AB /* DateCell.swift in Sources */,
+				32810A1722487C89007AA66E /* UIImageView+Extension.swift in Sources */,
+				32810A192248808D007AA66E /* ImageCell.swift in Sources */,
 				740CBEF42239BD0800C305AB /* SwitchCell.swift in Sources */,
 				325D53302241F94000BA6F67 /* DatePicker.swift in Sources */,
 				747C27692236A78B0062F162 /* ToDo.swift in Sources */,
@@ -362,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "To Do List/To Do List.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3LF677RTA3;
 				INFOPLIST_FILE = "$(SRCROOT)/To Do List/Supporting Files/Info.plist";
@@ -380,6 +407,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "To Do List/To Do List.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3LF677RTA3;
 				INFOPLIST_FILE = "$(SRCROOT)/To Do List/Supporting Files/Info.plist";

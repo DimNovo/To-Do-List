@@ -72,7 +72,7 @@ extension ToDoItemTableViewController/*: UITableViewDelegate */
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        guard isItDatePickerCell(at: indexPath) else { return 44 }
+        guard isItDatePickerCell(at: indexPath) || isItImageCell(at: indexPath) else { return 44 }
         guard let cell = tableView.cellForRow(at: indexPath) else { return 44 }
         return cell.isHidden ? 0 : 200
     }
@@ -94,6 +94,13 @@ extension ToDoItemTableViewController
         guard let cell = tableView.cellForRow(at: indexPath) else { return false }
         
         return cell is DatePickerCell
+    }
+    
+    func isItImageCell(at indexPath: IndexPath) -> Bool
+    {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return false }
+        
+        return cell is ImageCell
     }
     
     // Configure: Cell
@@ -137,6 +144,13 @@ extension ToDoItemTableViewController
                         return cell
                     }
                 }
+                else if let imageValue = value as? UIImage?
+                {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell") as! ImageCell
+                    cell.largeImageView.image = imageValue
+                    
+                    return cell
+                }
                 else
                 {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! TextFieldCell
@@ -169,7 +183,7 @@ extension ToDoItemTableViewController
             let cell = tableView.cellForRow(at: indexPath)
             let value = todo.values[index]
             
-            if value is String
+            if value is String || value is String?
             {
                 let textFieldCell = cell as! TextFieldCell
                 let value = textFieldCell.textField.text
@@ -194,13 +208,16 @@ extension ToDoItemTableViewController
                 let text = dateCell.labelCell.text ?? ""
                 let value = formater.date(from: text)
                 todo.setValue(value, forKey: key)
-                
+            }
+            else if value is UIImage?
+            {
+                let ImageCell = cell as! ImageCell
+                let value = ImageCell.imageView?.image
+                todo.setValue(value, forKey: key)
             }
             else
             {
-                let textFieldCell = cell as! TextFieldCell
-                let value = textFieldCell.textField.text
-                todo.setValue(value, forKey: key)
+                print(#function, "Can't find cell type at line: \(#line)")
             }
         }
     }
