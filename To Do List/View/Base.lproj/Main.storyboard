@@ -177,15 +177,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="199.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-fF-5zO">
-                                            <rect key="frame" x="20" y="11" width="374" height="178"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-fF-5zO">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="199.5"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="DFO-fF-5zO" firstAttribute="leading" secondItem="siF-9l-yVj" secondAttribute="leadingMargin" id="GxE-xp-mdL"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="DFO-fF-5zO" secondAttribute="trailing" id="RMB-zM-bRp"/>
-                                        <constraint firstItem="DFO-fF-5zO" firstAttribute="top" secondItem="siF-9l-yVj" secondAttribute="topMargin" id="Wl7-QD-MzN"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="DFO-fF-5zO" secondAttribute="bottom" id="an4-Cb-G5e"/>
+                                        <constraint firstAttribute="bottom" secondItem="DFO-fF-5zO" secondAttribute="bottom" id="Usf-x9-9Gh"/>
+                                        <constraint firstAttribute="trailing" secondItem="DFO-fF-5zO" secondAttribute="trailing" id="lZ8-vB-oQV"/>
+                                        <constraint firstItem="DFO-fF-5zO" firstAttribute="top" secondItem="siF-9l-yVj" secondAttribute="top" id="lnY-Jn-zxa"/>
+                                        <constraint firstItem="DFO-fF-5zO" firstAttribute="leading" secondItem="siF-9l-yVj" secondAttribute="leading" id="wqr-IG-PAJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -233,6 +233,9 @@
             <point key="canvasLocation" x="-705" y="32"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="imagePlaceholder" width="800" height="533"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="MWu-QK-lqE"/>
     </inferredMetricsTieBreakers>

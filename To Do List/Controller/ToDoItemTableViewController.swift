@@ -62,12 +62,17 @@ extension ToDoItemTableViewController/*: UITableViewDelegate */
     {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard isItDateCell(at: indexPath) else { return }
+        if  isItDateCell(at: indexPath)
+        {
         guard let cell = tableView.cellForRow(at: indexPath.nextRow) else { return }
-        
-        cell.isHidden.toggle()
-        tableView.beginUpdates()
-        tableView.endUpdates()
+            cell.isHidden.toggle()
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+        else if isItImageCell(at: indexPath)
+        {
+            print("fix me!!!")
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -95,7 +100,7 @@ extension ToDoItemTableViewController
         
         return cell is DatePickerCell
     }
-    
+    // Checking: is ImageCell
     func isItImageCell(at indexPath: IndexPath) -> Bool
     {
         guard let cell = tableView.cellForRow(at: indexPath) else { return false }
