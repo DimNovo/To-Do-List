@@ -60,10 +60,9 @@ extension ToDoItemTableViewController/*: UITableViewDelegate */
 {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
         if  isItDateCell(at: indexPath)
         {
+            tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: indexPath.nextRow) else { return }
             cell.isHidden.toggle()
             tableView.beginUpdates()
@@ -71,16 +70,23 @@ extension ToDoItemTableViewController/*: UITableViewDelegate */
         }
         else if isItImageCell(at: indexPath)
         {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell") as! ImageCell
+            let cell = tableView.cellForRow(at: indexPath) as! ImageCell
             camera(sender: cell)
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        guard isItDatePickerCell(at: indexPath) || isItImageCell(at: indexPath) else { return 44 }
-        guard let cell = tableView.cellForRow(at: indexPath) else { return 44 }
-        return cell.isHidden ? 0 : 200
+        if isItDatePickerCell(at: indexPath)
+        {
+            guard let cell = tableView.cellForRow(at: indexPath) else { return 44 }
+            return cell.isHidden ? 0 : 200
+        }
+        else if isItImageCell(at: indexPath)
+        {
+            return 300
+        }
+        return 44
     }
 }
 
@@ -116,7 +122,7 @@ extension ToDoItemTableViewController
         }
         
         // For iPad UI
-        alertController.popoverPresentationController?.sourceView = sender
+//        alertController.popoverPresentationController?.sourceView = sender
         
         present(alertController, animated: true, completion: nil)
         
@@ -255,7 +261,7 @@ extension ToDoItemTableViewController
             else if value is UIImage?
             {
                 let ImageCell = cell as! ImageCell
-                let value = ImageCell.imageView?.image
+                let value = ImageCell.largeImageView?.image
                 todo.setValue(value, forKey: key)
             }
             else

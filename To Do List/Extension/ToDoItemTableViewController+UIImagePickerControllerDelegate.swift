@@ -14,7 +14,9 @@ extension ToDoItemTableViewController: UIImagePickerControllerDelegate {
         
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell") as! ImageCell
+        let indexPath = tableView.indexPathForSelectedRow
+        let cell = tableView.cellForRow(at: indexPath!) as! ImageCell
+        
         cell.largeImageView.image = image
         
         print(#function, "image to save: \(image)")
