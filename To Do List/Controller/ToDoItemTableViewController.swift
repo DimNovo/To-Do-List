@@ -71,7 +71,8 @@ extension ToDoItemTableViewController/*: UITableViewDelegate */
         }
         else if isItImageCell(at: indexPath)
         {
-            print("fix me!!!")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell") as! ImageCell
+            camera(sender: cell)
         }
     }
     
@@ -86,6 +87,41 @@ extension ToDoItemTableViewController/*: UITableViewDelegate */
 // MARK: - ... Custom Methods
 extension ToDoItemTableViewController
 {
+    func camera(sender: ImageCell) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        let alertController = UIAlertController(
+            title: "Chose Image Source",
+            message: nil,
+            preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
+                imagePicker.sourceType = .camera
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            alertController.addAction(cameraAction)
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { action in
+                imagePicker.sourceType = .photoLibrary
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            alertController.addAction(photoLibraryAction)
+        }
+        
+        // For iPad UI
+        alertController.popoverPresentationController?.sourceView = sender
+        
+        present(alertController, animated: true, completion: nil)
+        
+    }
+        
     // Checking: is DateCell
     func isItDateCell(at indexPath: IndexPath) -> Bool
     {
@@ -145,19 +181,21 @@ extension ToDoItemTableViewController
                         cell.datePicker.indexPath = indexPath
                         cell.datePicker.minimumDate = Date()
                         cell.isHidden = true
-                        
+                        print(#function, #line)
                         return cell
                     }
                 }
                 else if let imageValue = value as? UIImage?
                 {
+                    print(#function, #line)
                     let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell") as! ImageCell
                     cell.largeImageView.image = imageValue
-                    
+                    print("imageCell added image: \(String(describing: imageValue))")
                     return cell
                 }
                 else
                 {
+                    print(#function, #line)
                     let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! TextFieldCell
                     cell.textField.text = nil
                     

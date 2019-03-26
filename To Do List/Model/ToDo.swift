@@ -26,7 +26,7 @@ import CloudKit
         self.isComplete = isComplete
         self.dueDate = dueDate
         self.notes = notes
-        self.image = image
+        self.image = UIImage(named: "imagePlaceholder")!
     }
     
 //    func genericFromCloudToDo<T>(fieldType: T) -> T
@@ -77,7 +77,7 @@ extension ToDo
                 guard let imageAsset = newValue as? CKAsset
                     else { return nil }
                 guard let imageData = try? Data(contentsOf:
-                    imageAsset.fileURL)
+                    imageAsset.fileURL!)
                     else { return nil }
                 guard let image = UIImage(data: imageData)
                     else { return nil }
