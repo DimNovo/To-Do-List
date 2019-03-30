@@ -7,12 +7,14 @@
 //
 
 import UIKit
-import CloudKit
 
 // MARK: - ... Properties
 class ToDoItemTableViewController: UITableViewController
 {
+    // MARK: - ... Outlets
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    // MARK: - ... Properties
     var todo = ToDo()
     
     override func viewDidLoad()
@@ -30,6 +32,7 @@ extension ToDoItemTableViewController/*: TableViewDataSource */
         let section = indexPath.section
         let value = todo.values[section]
         let cell = configureCellFor(indexPath: indexPath, with: value)
+        
         return cell
     }
     
@@ -72,14 +75,14 @@ extension ToDoItemTableViewController/*: UITableViewDelegate */
             tableView.deselectRow(at: indexPath, animated: true)
             guard let cell = tableView.cellForRow(at: indexPath.nextRow) else { return }
             cell.isHidden.toggle()
+            tableView.beginUpdates()
+            tableView.endUpdates()
         }
         else if isItImageCell(at: indexPath)
         {
             let cell = tableView.cellForRow(at: indexPath) as! ImageCell
             camera(sender: cell)
         }
-        tableView.beginUpdates()
-        tableView.endUpdates()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -108,9 +111,9 @@ extension ToDoItemTableViewController
         {
             let cameraAction = UIAlertAction(title: "𝐂𝐚𝐦𝐞𝐫𝐚", style: .default)
             { action in
-                imagePicker.sourceType = .camera
                 imagePicker.allowsEditing = true
                 imagePicker.delegate = self
+                imagePicker.sourceType = .camera
                 self.present(imagePicker, animated: true, completion: nil)
             }
             alertController.addAction(cameraAction)
@@ -199,8 +202,8 @@ extension ToDoItemTableViewController
             
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! TextFieldCell
-            cell.textField.text = nil
-            
+            cell.textField.text = value as? String
+            print(#function, "Can't find cell type at line: \(#line)")
             return cell
         }
     }
@@ -217,7 +220,7 @@ extension ToDoItemTableViewController
     @objc func textFieldDidChanged(_ textField: UITextField)
     {
         print(#function, "textFieldDidChanged: \(textField.text ?? "nil")")
-        if textField.text != nil
+        if  !textField.text!.isEmpty
         {
             saveButton.isEnabled = true
         }
@@ -274,5 +277,7 @@ extension ToDoItemTableViewController
                 print(#function, "Can't find cell type at line: \(#line)")
             }
         }
+        print(#function, todo.values)
+        ToDo.saveToCloudKit { todo in guard todo != nil else { return } }
     }
 }

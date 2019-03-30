@@ -12,12 +12,6 @@ import UIKit
 class ToDoTableViewController: UITableViewController
 {
     var todos = [ToDo]()
-    {
-        didSet
-        {
-            print("todos is changed: \(todos.self)")
-        }
-    }
 }
 
 // MARK: - ... UIViewController Methods
@@ -62,6 +56,7 @@ extension ToDoTableViewController
         let source = segue.source as! ToDoItemTableViewController
         let todo = source.todo
         guard !(source.todo.title.isEmpty) else { return }
+        
         // Edited Cell
         if source.navigationItem.title == "Edit",
             let indexPath = tableView.indexPathForSelectedRow
@@ -70,7 +65,7 @@ extension ToDoTableViewController
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
             
-            // Aded Cell
+        // Aded Cell
         else if source.navigationItem.title == "Add"
         {
             let indexPath = IndexPath(row: todos.count, section: 0)
