@@ -15,7 +15,7 @@ import CloudKit
     var dueDate: Date
     var notes: String?
     var image: UIImage
-
+    
     init(title: String = String(),
          isComplete: Bool = Bool(),
          dueDate: Date = Date(),
@@ -26,14 +26,14 @@ import CloudKit
         self.isComplete = isComplete
         self.dueDate = dueDate
         self.notes = notes
-        self.image = UIImage(named: "imagePlaceholder")!
+        self.image = image
     }
     
-//    func genericFromCloudToDo<T>(fieldType: T) -> T
-//    {
-//        return fieldType
-//    }
-
+    //    func genericFromCloudToDo<T>(fieldType: T) -> T
+    //    {
+    //        return fieldType
+    //    }
+    
     var keys: [String]
     {
         return Mirror(reflecting: self).children.compactMap { $0.label }
@@ -59,41 +59,32 @@ extension ToDo
             switch value
             {
             case is String:
-                guard let newValue = newValue as? String
-                    else { return nil }
+                guard let newValue = newValue as? String else { return nil }
                 self.setValue(newValue, forKey: key)
                 
             case is Bool:
-                guard let newValue = newValue as? Int
-                    else { return nil }
+                guard let newValue = newValue as? Int else { return nil }
                 self.setValue(newValue != 0, forKey: key)
                 
             case is Date:
-                guard let newValue = newValue as? Date
-                    else { return nil }
+                guard let newValue = newValue as? Date  else { return nil }
                 self.setValue(newValue, forKey: key)
                 
             case is UIImage:
-                guard let imageAsset = newValue as? CKAsset
-                    else { return nil }
-                guard let imageData = try? Data(contentsOf:
-                    imageAsset.fileURL!)
-                    else { return nil }
-                guard let image = UIImage(data: imageData)
-                    else { return nil }
+                guard let imageAsset = newValue as? CKAsset else { return nil }
+                guard let imageData = try? Data(contentsOf: imageAsset.fileURL!) else { return nil }
+                guard let image = UIImage(data: imageData) else { return nil }
                 self.setValue(image, forKey: key)
                 
-            case is String?:
-                guard let newValue = newValue as? String
-                    else { return nil }
-                self.setValue(newValue, forKey: key)
-                
             default:
+                guard let newValue = newValue as? String else { return nil }
+                self.setValue(newValue, forKey: key)
                 print(#function, "Unknow field type on line: \(#line)")
             }
         }
     }
     
+    // MARK: - ... Save to CloudKit Method
     static func loadFromCloudKit(completion: @escaping ([ToDo]?) -> Void)
     {
         let cloudContainer = CKContainer.default()
@@ -113,4 +104,28 @@ extension ToDo
             completion(todos)
         }
     }
+    
+    func save(_ record: CKRecord,
+              completionHandler: @escaping (CKRecord?, Error?) -> Void)
+    {
+        let record = CKRecord(recordType: "ToDo")
+        
+        record.setValue(self.title, forKey: "title")
+        record.setValue(self.isComplete, forKey: "isComplete")
+        record.setValue(self.dueDate, forKey: "dueDate")
+        record.setValue(self.image, forKey: "image")
+        
+        let cloudContainer = CKContainer.default()
+        let publicDatabase = cloudContainer.publicCloudDatabase
+        publicDatabase.save(record, completionHandler: { record, error in
+            guard error == nil else {
+                print(#function, error!.localizedDescription)
+                return
+            }
+            
+            print(record.map { record in publicDatabase }!)
+            
+        })
+    }
 }
+

@@ -1,4 +1,3 @@
-//
 //  SwitchCell.swift
 //  To Do List
 //

@@ -12,6 +12,12 @@ import UIKit
 class ToDoTableViewController: UITableViewController
 {
     var todos = [ToDo]()
+    {
+        didSet
+        {
+            print("todos is changed: \(todos.self)")
+        }
+    }
 }
 
 // MARK: - ... UIViewController Methods
@@ -24,14 +30,14 @@ extension ToDoTableViewController
         ToDo.loadFromCloudKit { todos in
             if let todos = todos
             {
-                self.todos = todos
+                self.todos = todos //ToDo.loadFromCloud
             }
             else
             {
                 self.todos = [] //ToDo.loadSampleData()
             }
             DispatchQueue.main.async {
-            self.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }
@@ -55,7 +61,7 @@ extension ToDoTableViewController
         guard segue.identifier == "SaveSegue" else { return }
         let source = segue.source as! ToDoItemTableViewController
         let todo = source.todo
-        
+        guard !(source.todo.title.isEmpty) else { return }
         // Edited Cell
         if source.navigationItem.title == "Edit",
             let indexPath = tableView.indexPathForSelectedRow
@@ -64,9 +70,8 @@ extension ToDoTableViewController
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
             
-        // Aded Cell
-        else if source.navigationItem.title == "Add",
-            !(source.todo.title.isEmpty) || !(source.todo.notes?.isEmpty)!
+            // Aded Cell
+        else if source.navigationItem.title == "Add"
         {
             let indexPath = IndexPath(row: todos.count, section: 0)
             todos.append(todo)
@@ -110,10 +115,8 @@ extension ToDoTableViewController
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCell")!
-        
         let row = indexPath.row
         let todo = todos[row]
-        
         configure(cell: cell, with: todo)
         
         return cell
@@ -130,7 +133,6 @@ extension ToDoTableViewController
 {
     func configure(cell: UITableViewCell, with todo: ToDo)
     {
-        
         cell.textLabel?.text = todo.title
         
         let formater = DateFormatter()

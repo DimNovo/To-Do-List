@@ -8,18 +8,34 @@
 
 import UIKit
 
-extension ToDoItemTableViewController: UIImagePickerControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+extension ToDoItemTableViewController: UIImagePickerControllerDelegate
+{
         
-        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
-        
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info:
+                                [UIImagePickerController.InfoKey : Any])
+    {
         let indexPath = tableView.indexPathForSelectedRow
         let cell = tableView.cellForRow(at: indexPath!) as! ImageCell
         
-        cell.largeImageView.image = image
-        
-        print(#function, "image to save: \(image)")
-        dismiss(animated: true)
+        if picker.allowsEditing
+        {
+            let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as! UIImage
+            cell.largeImageView.image = pickedImage
+            print(#function, "image to save: \(pickedImage)")
+        }
+        else
+        {
+            let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            cell.largeImageView.image = pickedImage
+            print(#function, "image to save: \(pickedImage)")
+        }
+
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
+        dismiss(animated: true, completion: nil)
     }
 }

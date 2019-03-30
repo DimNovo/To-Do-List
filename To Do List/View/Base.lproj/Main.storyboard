@@ -160,10 +160,10 @@
                                         </datePicker>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Hpy-pR-No2" secondAttribute="trailing" id="Fuj-MC-Ffi"/>
+                                        <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="Hpy-pR-No2" secondAttribute="trailing" id="Fuj-MC-Ffi"/>
                                         <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="Hpy-pR-No2" secondAttribute="bottom" id="Vnx-8P-i8p"/>
                                         <constraint firstItem="Hpy-pR-No2" firstAttribute="top" secondItem="fyS-mE-yGt" secondAttribute="topMargin" id="XM2-cT-KoU"/>
-                                        <constraint firstItem="Hpy-pR-No2" firstAttribute="leading" secondItem="fyS-mE-yGt" secondAttribute="leadingMargin" id="oZ2-2f-qkH"/>
+                                        <constraint firstItem="Hpy-pR-No2" firstAttribute="leading" relation="lessThanOrEqual" secondItem="fyS-mE-yGt" secondAttribute="leadingMargin" id="oZ2-2f-qkH"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -177,15 +177,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="199.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-fF-5zO">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="DFO-fF-5zO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="199.5"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="DFO-fF-5zO" secondAttribute="trailing" id="aAw-ud-5fR"/>
-                                        <constraint firstItem="DFO-fF-5zO" firstAttribute="leading" secondItem="siF-9l-yVj" secondAttribute="leading" id="gSN-tb-xnW"/>
-                                        <constraint firstItem="DFO-fF-5zO" firstAttribute="top" secondItem="siF-9l-yVj" secondAttribute="top" id="sAU-AP-n7A"/>
-                                        <constraint firstAttribute="bottom" secondItem="DFO-fF-5zO" secondAttribute="bottom" id="ymO-Vp-C8C"/>
+                                        <constraint firstItem="DFO-fF-5zO" firstAttribute="top" secondItem="siF-9l-yVj" secondAttribute="top" id="C1B-ha-3aO"/>
+                                        <constraint firstAttribute="bottom" secondItem="DFO-fF-5zO" secondAttribute="bottom" id="INY-22-9cL"/>
+                                        <constraint firstAttribute="trailing" secondItem="DFO-fF-5zO" secondAttribute="trailing" id="mhX-ON-Hxh"/>
+                                        <constraint firstItem="DFO-fF-5zO" firstAttribute="leading" secondItem="siF-9l-yVj" secondAttribute="leading" id="rlR-to-smT"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -210,6 +210,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="saveButton" destination="hRd-DK-Ui2" id="y4P-Ad-w20"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3NO-hN-BW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BLy-ew-fNz" userLabel="Exit" sceneMemberID="exit"/>
@@ -234,7 +237,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="imagePlaceholder" width="800" height="533"/>
+        <image name="default" width="400" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="MWu-QK-lqE"/>
